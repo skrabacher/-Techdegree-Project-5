@@ -54,7 +54,7 @@ function generateEmployeeCards(userArray) { //parameter for this function must b
 //creates and displays an employee modal
 function generateEmployeeModal(userArray) {
   console.log(userArray[1]);
-  $("[class=card]").click(function(event){ //when an employee card is clicked...
+  $("[class=card]").click(function(){ //when an employee card is clicked...
     //console.log(userArray.indexOf('event.target')); //DOESNT WORK returns -1
     let $index = $("[class=card]").index(this); //returns the index position of the item that was clicked on
     console.log($index); // returns an integer that is the index postiion
@@ -75,8 +75,20 @@ function generateEmployeeModal(userArray) {
               </div>
           </div>`
           $("body").append(employeeModal); //appends employeeModal to the body of the html file
-        
+          
+
+          //DRAFT ATTEMPT TO ADD click event to modal close button. - CURRENTLY not working and not returning errors either
+          $("[class=modal-close-button]").click(function() {
+            console.log("X button clicked");
+            $(".modal-container").remove();
+          });
+          // $("button").click(function(){
+          //   $("p").remove();
+          // });
   });
+
+ 
+
 };
 
 // ------------------------------------------
@@ -90,4 +102,4 @@ function generateEmployeeModal(userArray) {
 
 // const xButton = document.querySelector('.modal-close-button');
 // xButton.addEventListener('click', generateEmployeeCards);//click event handler to close employee modal
-$("[class=modal-close-button]").on('click', console.log("generateEmployeeCards"));
+// $("[class=modal-close-button]").on('click', console.log("generateEmployeeCards"));
