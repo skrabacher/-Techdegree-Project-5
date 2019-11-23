@@ -69,7 +69,7 @@ function generateEmployeeModal(userArray) {
                   <p class="modal-text">${user.email}</p>
                   <p class="modal-text cap">${user.location.city}</p>
                   <hr>
-                  <p class="modal-text">${user.phone}</p>
+                  <p class="modal-text">${user.cell}</p>
                   <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
                   <p class="modal-text">Birthday: ${user.dob.date} <br>***NEED TO REFORMAT to MM/DD/YYYY***</p>
               </div>
@@ -77,10 +77,9 @@ function generateEmployeeModal(userArray) {
           $("body").append(employeeModal); //appends employeeModal to the body of the html file
           
 
-          //DRAFT ATTEMPT TO ADD click event to modal close button. - CURRENTLY not working and not returning errors either
-          $("[class=modal-close-button]").click(function() {
+          $("button").click(function() { //click event to modal close button.
             console.log("X button clicked");
-            $(".modal-container").remove();
+            $(".modal-container").remove(); //selects and removes modal
           });
           // $("button").click(function(){
           //   $("p").remove();
