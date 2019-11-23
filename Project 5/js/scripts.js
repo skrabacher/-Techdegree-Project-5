@@ -23,7 +23,7 @@
 //creates and displays employee contact cards
 function generateEmployeeCards(userArray) { //parameter for this function must be an array
   userArray.forEach(user => { //loops through each user in the array and places their data into the card template for html
-    console.log(user)
+    //console.log(user)
     let cardTemplate= `<div class="card">
                   <div class="card-img-container">
                       <img class="card-img" src="${user.picture.medium}" alt="profile picture">
@@ -40,10 +40,25 @@ function generateEmployeeCards(userArray) { //parameter for this function must b
 
 };
 
+///////////
+// const beasts = ['ant', 'bison', 'camel', 'duck', 'bison'];
+
+// console.log(beasts.indexOf('bison'));
+// //////////////
+
+// $('selector').click(function(){
+//   alert( $('selector').index(this) );
+// });
+
+
 //creates and displays an employee modal
 function generateEmployeeModal(userArray) {
-  $("[class=card]").click(function(event){ //when an employee card is clicked... 
-        userArray.forEach(user => {
+  console.log(userArray[1]);
+  $("[class=card]").click(function(event){ //when an employee card is clicked...
+    //console.log(userArray.indexOf('event.target')); //DOESNT WORK returns -1
+    let $index = $("[class=card]").index(this); //returns the index position of the item that was clicked on
+    console.log($index); // returns an integer that is the index postiion
+    let user = userArray[$index]
         console.log(user)
           let employeeModal= `<div class="modal-container">
           <div class="modal">
@@ -60,7 +75,7 @@ function generateEmployeeModal(userArray) {
               </div>
           </div>`
           $("body").append(employeeModal); //appends employeeModal to the body of the html file
-        })
+        
   });
 };
 
