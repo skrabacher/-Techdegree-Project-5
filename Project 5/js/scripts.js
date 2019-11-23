@@ -23,7 +23,6 @@
 //creates and displays employee contact cards
 function generateEmployeeCards(userArray) { //parameter for this function must be an array
   userArray.forEach(user => { //loops through each user in the array and places their data into the card template for html
-    //console.log(user)
     let cardTemplate= `<div class="card">
                   <div class="card-img-container">
                       <img class="card-img" src="${user.picture.medium}" alt="profile picture">
@@ -34,71 +33,47 @@ function generateEmployeeCards(userArray) { //parameter for this function must b
                       <p class="card-text cap">${user.location.city}, ${user.location.state}</p>
                   </div>`
  $("#gallery").append(cardTemplate); //appends cardTemplate to the gallery div in the html file
-
-
 })
-
 };
 
-///////////
-// const beasts = ['ant', 'bison', 'camel', 'duck', 'bison'];
-
-// console.log(beasts.indexOf('bison'));
-// //////////////
-
-// $('selector').click(function(){
-//   alert( $('selector').index(this) );
-// });
-
+//function to reformat DOB string to mm/dd/yy
+function formatBirthday(dob) {
+  var month = dob.slice(5,7); //two digit numeral representing the month
+  var day = dob.slice(8,10); //two digit numeral representing the day
+  var year = dob.slice(2,4); //two digit numeral representing the year
+  return `${month}/${day}/${year}`
+  };
 
 //creates and displays an employee modal
 function generateEmployeeModal(userArray) {
-  console.log(userArray[1]);
+  //console.log(userArray[1]);
   $("[class=card]").click(function(){ //when an employee card is clicked...
-    //console.log(userArray.indexOf('event.target')); //DOESNT WORK returns -1
-    let $index = $("[class=card]").index(this); //returns the index position of the item that was clicked on
-    console.log($index); // returns an integer that is the index postiion
-    let user = userArray[$index]
-        console.log(user)
-          let employeeModal= `<div class="modal-container">
-          <div class="modal">
-              <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-              <div class="modal-info-container">
-                  <img class="modal-img" src="${user.picture.large}" alt="profile picture">
-                  <h3 id="name" class="modal-name cap">${user.name.first} ${user.name.last}</h3>
-                  <p class="modal-text">${user.email}</p>
-                  <p class="modal-text cap">${user.location.city}</p>
-                  <hr>
-                  <p class="modal-text">${user.cell}</p>
-                  <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
-                  <p class="modal-text">Birthday: ${user.dob.date} <br>***NEED TO REFORMAT to MM/DD/YYYY***</p>
-              </div>
-          </div>`
+    let $index = $("[class=card]").index(this); //returns the index position of the item that was clicked on as an integer
+    //console.log($index); // returns an integer that is the index postiion
+    let user = userArray[$index] //grabs the employee object at the specific index position in the array
+        //console.log(user)
+          //variable below formats employee modal and inserts employee data into the modal
+          let employeeModal= `<div class="modal-container"> 
+                                  <div class="modal">
+                                      <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+                                      <div class="modal-info-container">
+                                          <img class="modal-img" src="${user.picture.large}" alt="profile picture">
+                                          <h3 id="name" class="modal-name cap">${user.name.first} ${user.name.last}</h3>
+                                          <p class="modal-text">${user.email}</p>
+                                          <p class="modal-text cap">${user.location.city}</p>
+                                          <hr>
+                                          <p class="modal-text">${user.cell}</p>
+                                          <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
+                                          <p class="modal-text">Birthday: ${formatBirthday(user.dob.date)}</p>
+                                      </div>
+                                  </div>`
           $("body").append(employeeModal); //appends employeeModal to the body of the html file
           
 
           $("button").click(function() { //click event to modal close button.
-            console.log("X button clicked");
+            //console.log("X button clicked");
             $(".modal-container").remove(); //selects and removes modal
           });
-          // $("button").click(function(){
-          //   $("p").remove();
-          // });
   });
-
- 
-
 };
 
-// ------------------------------------------
-//  EVENT LISTENERS
-// ------------------------------------------
-// const card = document.querySelectorAll('.card'); //***try using click events from Proj 3 with jquery here */
-// console.log(card);
-// card.addEventListener('click', console.log("generateEmployeeModal"));//click event handler to open employee modal
-// $("[class=card]").click(function(event){console.log("generateEmployeeModal")});
-
-
-// const xButton = document.querySelector('.modal-close-button');
-// xButton.addEventListener('click', generateEmployeeCards);//click event handler to close employee modal
-// $("[class=modal-close-button]").on('click', console.log("generateEmployeeCards"));
