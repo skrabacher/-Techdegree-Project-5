@@ -8,7 +8,11 @@
 
   fetch('https://randomuser.me/api/?results=12') //fetches 12 random users
     .then(response => response.json()) //converts to json object array with 12 users
-    .then(data => generateEmployeeCards(data.results))
+    .then(function (data) {
+      generateEmployeeCards(data.results),
+      generateEmployeeModal(data.results)
+    })
+    
     .catch(error => console.log(error.message))
 
 
@@ -16,6 +20,7 @@
 //  HELPER FUNCTIONS
 // ------------------------------------------
 
+//creates and displays employee contact cards
 function generateEmployeeCards(userArray) { //parameter for this function must be an array
   userArray.forEach(user => { //loops through each user in the array and places their data into the card template for html
     console.log(user)
@@ -35,34 +40,39 @@ function generateEmployeeCards(userArray) { //parameter for this function must b
 
 };
 
+//creates and displays an employee modal
 function generateEmployeeModal(userArray) {
- userArray.forEach(user => {
-  console.log(user)
-    let employeeModal= `<div class="modal-container">
-    <div class="modal">
-        <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-        <div class="modal-info-container">
-            <img class="modal-img" src="${user.picture.large}" alt="profile picture">
-            <h3 id="name" class="modal-name cap">${user.name.first} ${user.name.last}</h3>
-            <p class="modal-text">${user.email}</p>
-            <p class="modal-text cap">${user.location.city}</p>
-            <hr>
-            <p class="modal-text">${user.phone}</p>
-            <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
-            <p class="modal-text">Birthday: ${user.dob.date} <br>***NEED TO REFORMAT to MM/DD/YYYY***</p>
-        </div>
-    </div>`
-    $("body").append(employeeModal); //appends employeeModal to the body of the html file
-
- })
+  $("[class=card]").click(function(event){ //when an employee card is clicked... 
+        userArray.forEach(user => {
+        console.log(user)
+          let employeeModal= `<div class="modal-container">
+          <div class="modal">
+              <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+              <div class="modal-info-container">
+                  <img class="modal-img" src="${user.picture.large}" alt="profile picture">
+                  <h3 id="name" class="modal-name cap">${user.name.first} ${user.name.last}</h3>
+                  <p class="modal-text">${user.email}</p>
+                  <p class="modal-text cap">${user.location.city}</p>
+                  <hr>
+                  <p class="modal-text">${user.phone}</p>
+                  <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
+                  <p class="modal-text">Birthday: ${user.dob.date} <br>***NEED TO REFORMAT to MM/DD/YYYY***</p>
+              </div>
+          </div>`
+          $("body").append(employeeModal); //appends employeeModal to the body of the html file
+        })
+  });
 };
 
 // ------------------------------------------
 //  EVENT LISTENERS
 // ------------------------------------------
-const card = document.querySelectorAll('.card'); //***try using click events from Proj 3 with jquery here */
-console.log(card);
-card.addEventListener('click', console.log("generateEmployeeModal"));//click event handler to open employee modal
+// const card = document.querySelectorAll('.card'); //***try using click events from Proj 3 with jquery here */
+// console.log(card);
+// card.addEventListener('click', console.log("generateEmployeeModal"));//click event handler to open employee modal
+// $("[class=card]").click(function(event){console.log("generateEmployeeModal")});
 
-const xButton = document.querySelector('.modal-close-button');
-xButton.addEventListener('click', generateEmployeeCards);//click event handler to close employee modal
+
+// const xButton = document.querySelector('.modal-close-button');
+// xButton.addEventListener('click', generateEmployeeCards);//click event handler to close employee modal
+$("[class=modal-close-button]").on('click', console.log("generateEmployeeCards"));
